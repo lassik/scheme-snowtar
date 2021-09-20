@@ -22,8 +22,7 @@
                  tar-pack-u8vector
                  tar-unpack-genport
                  tar-unpack-file
-                 tar-unpack-u8vector
-                 tar-read-file)
+                 tar-unpack-u8vector)
 
   (import scheme)
   (cond-expand
