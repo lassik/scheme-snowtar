@@ -1,0 +1,83 @@
+== Outdated egg!
+
+This is an egg for CHICKEN 4, the unsupported old release.  You're almost certainly looking for [[/eggref/5/snowtar|the CHICKEN 5 version of this egg]], if it exists.
+
+If it does not exist, there may be equivalent functionality provided by another egg; have a look at the [[https://wiki.call-cc.org/chicken-projects/egg-index-5.html|egg index]]. Otherwise, please consider porting this egg to the current version of CHICKEN.
+
+[[tags: egg]]
+[[toc:]]
+
+== snowtar
+
+A port of the [[http://snow.iro.umontreal.ca/|Scheme Now!]]
+{{tar}} package.
+
+=== Requirements
+
+[[numbers]], [[miscmacros]]
+
+=== Package description
+
+<enscript highlight=scheme>
+(package* tar/v1.0.1
+ (provide:
+
+  (define-record* tar-rec
+    ;; uid: tar-rec-1e4c3b06-1a6f-4765-9d77-c1093d1c15ee
+    name
+    mode
+    uid
+    gid
+    mtime
+    type
+    linkname
+    uname
+    gname
+    devmajor
+    devminor
+    atime
+    ctime
+    content)
+
+  (define (make-tar-condition msg))
+  (define (tar-condition? obj))
+  (define (tar-condition-msg cnd))
+
+  (define (tar-pack-genport tar-rec-list genport-out))
+  (define (tar-pack-file tar-rec-list filename))
+  (define (tar-pack-u8vector tar-rec-list))
+  (define (tar-unpack-genport genport-in))
+  (define (tar-unpack-file filename))
+  (define (tar-unpack-u8vector u8vect))
+  (define (tar-read-file filename)))
+
+ (maintainer:
+  "Scheme Now! <snow at iro.umontreal.ca>")
+
+ (author:
+  "Marc Feeley <feeley at iro.umontreal.ca>")
+
+ (homepage:
+  "http://snow.iro.umontreal.ca")
+
+ (description:
+  "TAR file format packing and unpacking.")
+
+ (keywords: conv snow)
+
+ (license: lgpl/v2.1)
+
+ (require: bignum/v1)
+ (require: homovector/v1)
+ (require: genport/v1)
+ (require: filesys/v1)
+ (require: time/v1))
+</enscript>
+
+This package was converted to a CHICKEN extension by
+[[/users/felix winkelmann|felix winkelmann]]
+
+=== History
+
+; 1.0.1.1 : fixed missing dependency (thanks to Mario)
+; 1.0.1 : initial import
