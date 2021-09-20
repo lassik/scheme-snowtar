@@ -8,4 +8,5 @@
  (author "Marc Feeley")
  (maintainer "felix winkelmann")
  (depends miscmacros numbers)
- (files "snow-compatibility.scm" "snowtar.meta" "snowtar.scm" "snowtar.setup" "snowtar-module.scm" "tar.scm"))
+ (files "snow-compatibility.scm" "snowtar.meta" "snowtar.scm"
+        "snowtar.setup" "snowtar-module.scm" "tar.scm"))
