@@ -13,13 +13,6 @@
        (syntax-rules ()
          ((_ . args) (old . args)))))))
 
-(define-syntax defnoop
-  (syntax-rules ()
-    ((_ new)
-     (define-syntax new
-       (syntax-rules ()
-         ((_ . args) (begin)))))))
-
 (define-syntax defidentity
   (syntax-rules ()
     ((_ new)

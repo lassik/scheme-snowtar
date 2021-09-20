@@ -60,8 +60,6 @@
 
   ;;; general
 
-  (defnoop package*)
-
   (cond-expand
     (chicken
      (alias snow-raise signal))

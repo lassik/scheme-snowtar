@@ -40,62 +40,6 @@
   (ctime     tar-rec-ctime     tar-rec-ctime-set!)
   (content   tar-rec-content   tar-rec-content-set!))
 
-(package* tar/v1.0.1
- (provide:
-
-  (define-record* tar-rec
-    ;; uid: tar-rec-1e4c3b06-1a6f-4765-9d77-c1093d1c15ee
-    name
-    mode
-    uid
-    gid
-    mtime
-    type
-    linkname
-    uname
-    gname
-    devmajor
-    devminor
-    atime
-    ctime
-    content)
-
-  (define (make-tar-condition msg))
-  (define (tar-condition? obj))
-  (define (tar-condition-msg cnd))
-
-  (define (tar-pack-genport tar-rec-list genport-out))
-  (define (tar-pack-file tar-rec-list filename))
-  (define (tar-pack-u8vector tar-rec-list))
-  (define (tar-unpack-genport genport-in))
-  (define (tar-unpack-file filename))
-  (define (tar-unpack-u8vector u8vect))
-  (define (tar-read-file filename)))
-
- (maintainer:
-  "Scheme Now! <snow at iro.umontreal.ca>")
-
- (author:
-  "Marc Feeley <feeley at iro.umontreal.ca>")
-
- (homepage:
-  "http://snow.iro.umontreal.ca")
-
- (description:
-  "TAR file format packing and unpacking.")
-
- (keywords: conv snow)
-
- (license: lgpl/v2.1)
-
- (require: bignum/v1)
- (require: homovector/v1)
- (require: genport/v1)
- (require: filesys/v1)
- (require: time/v1))
-
-;;;===========================================================================
-
 ;;; System dependencies.
 
 (cond-expand
