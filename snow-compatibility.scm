@@ -1,20 +1,3 @@
-;;;; snow-compatibility.scm
-
-(import (chicken blob))
-(import (chicken condition))
-(import (chicken file))
-(import (chicken file posix))
-(import (chicken fixnum))
-(import (chicken io))
-(import (chicken memory))
-(import (chicken time))
-(import (only (chicken syntax) define-compiler-syntax))
-(import (only (chicken string) string-intersperse))
-
-;;(import (except miscmacros define-macro))
-(import (miscmacros))
-
-
 (define-syntax-rule (define-alias-syntax new old)
   (define-syntax-rule (old . args)
     (new . args)))

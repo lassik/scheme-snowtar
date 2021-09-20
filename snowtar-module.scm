@@ -1,6 +1,3 @@
-;;;; snowtar-module.scm
-
-
 (module snowtar (tar-rec?
                  make-tar-rec
                  tar-rec-name tar-rec-name-set!
@@ -28,9 +25,36 @@
                  tar-unpack-u8vector
                  tar-read-file)
 
-;;(import scheme chicken)
-(import (scheme) (chicken base))
+  (import scheme)
+  (cond-expand
+    (chicken-4
+     (import chicken
+             extras
+             miscmacros)
+     (use data-structures
+          lolevel
+          numbers
+          posix
+          srfi-4
+          utils))
+    (chicken-5
+     (import (chicken base)
+             (chicken blob)
+             (chicken condition)
+             (chicken file posix)
+             (chicken file)
+             (chicken fixnum)
+             (chicken io)
+             (chicken memory)
+             (chicken module)
+             (chicken pathname)
+             (chicken platform)
+             (chicken process-context)
+             (chicken string)
+             (chicken syntax)
+             (chicken time)
+             (srfi 4)
+             (miscmacros))))
 
-(include "snowtar.scm")
-
-)
+  (include "snow-compatibility.scm")
+  (include "tar.scm"))

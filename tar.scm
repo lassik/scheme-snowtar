@@ -8,6 +8,22 @@
 
 ;;; Contains procedures to pack and unpack tar files.
 
+(define-record tar-rec
+  name
+  mode
+  uid
+  gid
+  mtime
+  type
+  linkname
+  uname
+  gname
+  devmajor
+  devminor
+  atime
+  ctime
+  content)
+
 (package* tar/v1.0.1
  (provide:
 
