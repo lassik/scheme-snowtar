@@ -8,7 +8,7 @@
  (depends miscmacros numbers)
  (doc-from-wiki)
  (files "snow-compatibility.scm"
-        "snowtar-module.scm"
+        "snowtar.chicken.scm"
         "snowtar.meta"
         "snowtar.setup"
         "tar.scm"))

@@ -8,7 +8,7 @@
  (dependencies miscmacros)
  (components
   (extension snowtar
-             (source "snowtar-module.scm")
+             (source "snowtar.chicken.scm")
              (source-dependencies
               "snow-compatibility.scm"
               "tar.scm"))))
