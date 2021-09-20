@@ -509,57 +509,9 @@
     result))
 
 (define (tar-read-file filename)
-
-  (define mtime ;; current time because we can't get file's mtime
-    (current-time-seconds))
-
-  (define (read-file filename rev-tar-rec-list)
-    (let* ((type
-            (if (snow-file-directory? filename)
-                'directory
-                'regular))
-           (content
-            (if (eq? type 'regular)
-                (genport-read-file filename)
-                (snow-make-u8vector 0)))
-           (mode
-            (if (eq? type 'directory) 493 420))
-           (tr
-            (make-tar-rec
-             (if (eq? type 'directory)
-                 (snow-make-filename filename "")
-                 filename)
-             mode ;; mode
-             0 ;; uid
-             0 ;; gid
-             mtime ;; mtime
-             type
-             "" ;; linkname
-             "root" ;; uname
-             "root" ;; gname
-             0 ;; devmajor
-             0 ;; devminor
-             #f ;; atime
-             #f ;; ctime
-             content))
-           (new-rev-tar-rec-list
-            (cons tr rev-tar-rec-list)))
-      (if (eq? type 'directory)
-          (read-dir filename new-rev-tar-rec-list)
-          new-rev-tar-rec-list)))
-
-  (define (read-dir dir rev-tar-rec-list)
-    (let loop ((files (snow-directory-files dir))
-               (rev-tar-rec-list rev-tar-rec-list))
-      (if (pair? files)
-          (let* ((name
-                  (car files))
-                 (filename
-                  (snow-make-filename dir name)))
-            (loop (cdr files)
-                  (read-file filename rev-tar-rec-list)))
-          rev-tar-rec-list)))
-
-  (reverse (read-file filename '())))
+  (let* ((port (open-input-file filename))
+         (res (tar-unpack-genport port)))
+    (close-input-port port)
+    res))
 
 ;;;===========================================================================
