@@ -94,6 +94,82 @@ Returns a new {{tar-rec}}. Fields may be omitted by passing {{#f}} for
 the corresponding argument. See the Accessor documentation above for
 the types of the arguments.
 
+=== Procedures
+
+==== Packing
+
+<procedure>(tar-pack-genport records port) → void</procedure>
+
+''records'' must be a list of tar-rec objects. ''port'' must be an
+output port.
+
+Writes a tar archive containing the ''records'' to ''port''. Raises
+an exception (a tar condition object) if any of the ''records'' contain
+unsupported fields or invalid field contents. Currently, the data is in
+{{ustar}} format.
+
+<procedure>(tar-pack-file records path) → void</procedure>
+
+''records'' must be a list of tar-rec objects. ''path'' must be a
+string describing a valid path.
+
+Writes a tar archive containing the ''records'' to the file named by
+''path''. Raises an exception (a tar condition object) if any of the
+''records'' contain unsupported fields or invalid field contents.
+Currently, the data is in {{ustar}} format.
+
+<procedure>(tar-pack-u8vector records) → u8vector</procedure>
+
+''records'' must be a list of tar-rec objects.
+
+Encodes the ''records'' as a tar archive and returns this data as
+a u8vector. Raises an exception (a tar condition object) if any of the
+''records'' contain unsupported fields or invalid field contents.
+Currently, the data is in {{ustar}} format.
+
+==== Unpacking
+
+<procedure>(tar-unpack-genport port) → list[tar-rec]</procedure>
+
+Decodes tar data from ''port'' and returns it as a list of tar
+records. Raises an exception (a tar condition object) if decoding
+fails for some reason.
+
+<procedure>(tar-unpack-file path) → list[tar-rec]</procedure>
+
+Decodes tar data from the file named by ''path'' and returns it as
+a list of tar records. Raises an exception (a tar condition object)
+if decoding fails for some reason.
+
+<procedure>(tar-unpack-u8vector u8vector) → list[tar-rec]</procedure>
+
+Decodes tar data from ''u8vector'' and returns it as a list of tar
+records. Raises an exception (a tar condition object) if decoding
+fails for some reason.
+
+=== Conditions
+
+<procedure>(make-tar-condition message) → condition</procedure>
+
+Returns a new tar condition object encapsulating the ''message''
+argument (a string). This is a composite condition with the following
+structure:
+
+* Kind-key {{exn}} with prop-key {{message}}.
+* Kind-key {{snow}} with prop-keys {{type}} and {{data}}.
+* Kind-key {{tar-condition}}.
+
+See the [[/man/5/Module (chicken condition)|(chicken condition)]] module
+for more information on condition objects.
+
+<procedure>(tar-condition? obj) → boolean</procedure>
+
+Returns true iff ''obj'' is a tar condition object.
+
+<procedure>(tar-condition-msg condition) → string</procedure>
+
+Returns the message encapsulated by ''condition''.
+
 === History
 
 ; 1.0.1.1 : fixed missing dependency (thanks to Mario)
