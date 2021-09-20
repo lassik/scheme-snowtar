@@ -1,25 +1,29 @@
-(define-syntax-rule (define-alias-syntax new old)
-  (define-syntax-rule (old . args)
-    (new . args)))
+(define-syntax defalias
+  (syntax-rules ()
+    ((_ (name . args) body ...)
+     (define-compiler-syntax name
+       (syntax-rules ()
+         ((_ . args2)
+          ((lambda args body ...) . args2)))))))
 
-(define-syntax-rule (defalias (name . args) body ...)
-  (define-compiler-syntax name
-    (syntax-rules ()
-      ((_ . args2)
-       ((lambda args body ...) . args2)))))
+(define-syntax alias
+  (syntax-rules ()
+    ((_ new old)
+     (define-compiler-syntax new
+       (syntax-rules ()
+         ((_ . args) (old . args)))))))
 
-(define-syntax-rule (alias new old)
-  (define-compiler-syntax new
-    (syntax-rules ()
-      ((_ . args) (old . args)))))
+(define-syntax defnoop
+  (syntax-rules ()
+    ((_ new)
+     (define-syntax new
+       (syntax-rules ()
+         ((_ . args) (begin)))))))
 
-(define-syntax-rule (defnoop new)
-  (define-syntax new
-    (syntax-rules ()
-      ((_ . args) (begin)))))
-
-(define-syntax-rule (defidentity new)
-  (defalias (new x) x))
+(define-syntax defidentity
+  (syntax-rules ()
+    ((_ new)
+     (defalias (new x) x))))
 
 (define-syntax definternal
   (syntax-rules ()
@@ -40,12 +44,23 @@
 (define-syntax define-macro
   (syntax-rules ()
     ((_ (name) val)
-     (define-syntax-rule (name) val))))
+     (define-syntax name
+       (syntax-rules ()
+         ((_)
+          val))))))
 
-(alias snow-raise signal)
+(cond-expand
+  (chicken
+   (alias snow-raise signal))
+  (r7rs
+   (alias snow-raise raise)))
 
 (definternal (snow-make-filename . parts)
-  (string-intersperse parts "/"))
+  (if (null? parts) ""
+      (let loop ((whole (car parts)) (parts (cdr parts)))
+        (if (null? parts) whole
+            (loop (string-append whole "/" (car parts))
+                  (cdr parts))))))
 
 (definternal snow-cond? (condition-predicate 'snow))
 
