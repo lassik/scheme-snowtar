@@ -10,6 +10,5 @@
  (files "snow-compatibility.scm"
         "snowtar-module.scm"
         "snowtar.meta"
-        "snowtar.scm"
         "snowtar.setup"
         "tar.scm"))
