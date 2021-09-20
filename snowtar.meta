@@ -1,5 +1,4 @@
-;;;; snowtar.meta
-
+;; -*- Scheme -*-
 
 ((synopsis "TAR file format packing and unpacking.")
  (category parsing)
