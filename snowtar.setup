@@ -1,0 +1,10 @@
+;;;; snowtar-setup.scm
+
+
+(compile -s snowtar-module.scm -JS -O3 -d1 -o snowtar.so)
+(compile -s snowtar.import.scm -O3 -d0)
+
+(install-extension
+ 'snowtar
+ '("snowtar.so" "snowtar.import.so")
+ '((version "1.0.1.1")))

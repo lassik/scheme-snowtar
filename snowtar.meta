@@ -1,0 +1,11 @@
+;;;; snowtar.meta
+
+
+((synopsis "TAR file format packing and unpacking.")
+ (category parsing)
+ (license "LGPL-2.1")
+ (doc-from-wiki)
+ (author "Marc Feeley")
+ (maintainer "felix winkelmann")
+ (depends miscmacros numbers)
+ (files "snow-compatibility.scm" "snowtar.meta" "snowtar.scm" "snowtar.setup" "snowtar-module.scm" "tar.scm"))
