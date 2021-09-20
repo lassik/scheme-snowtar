@@ -8,21 +8,37 @@
 
 ;;; Contains procedures to pack and unpack tar files.
 
-(define-record tar-rec
-  name
-  mode
-  uid
-  gid
-  mtime
-  type
-  linkname
-  uname
-  gname
-  devmajor
-  devminor
-  atime
-  ctime
-  content)
+(define-record-type tar-rec
+  (make-tar-rec
+   name
+   mode
+   uid
+   gid
+   mtime
+   type
+   linkname
+   uname
+   gname
+   devmajor
+   devminor
+   atime
+   ctime
+   content)
+  tar-rec?
+  (name      tar-rec-name      tar-rec-name-set!)
+  (mode      tar-rec-mode      tar-rec-mode-set!)
+  (uid       tar-rec-uid       tar-rec-uid-set!)
+  (gid       tar-rec-gid       tar-rec-gid-set!)
+  (mtime     tar-rec-mtime     tar-rec-mtime-set!)
+  (type      tar-rec-type      tar-rec-type-set!)
+  (linkname  tar-rec-linkname  tar-rec-linkname-set!)
+  (uname     tar-rec-uname     tar-rec-uname-set!)
+  (gname     tar-rec-gname     tar-rec-gname-set!)
+  (devmajor  tar-rec-devmajor  tar-rec-devmajor-set!)
+  (devminor  tar-rec-devminor  tar-rec-devminor-set!)
+  (atime     tar-rec-atime     tar-rec-atime-set!)
+  (ctime     tar-rec-ctime     tar-rec-ctime-set!)
+  (content   tar-rec-content   tar-rec-content-set!))
 
 (package* tar/v1.0.1
  (provide:
