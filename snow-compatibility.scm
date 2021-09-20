@@ -66,7 +66,7 @@
 
 (definternal snow-cond? (condition-predicate 'snow))
 
-(definternal (make-snow-cond type data)	; probably only sensible for tar
+(definternal (make-snow-cond type data) ; probably only sensible for tar
   (make-composite-condition
    (make-property-condition 'exn 'message (vector-ref data 0))
    (make-property-condition 'snow 'type type 'data (vector-ref data 0))
