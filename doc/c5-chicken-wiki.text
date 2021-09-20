@@ -1,0 +1,100 @@
+== snowtar
+
+This egg provides procedures for reading
+[[https://en.wikipedia.org/wiki/Tar_(computing)|tar]] files. It is
+capable of reading and writing files in the {{ustar}}, {{gnu}}, and
+{{v7}} tar formats.
+
+This is a port of the [[http://snow.iro.umontreal.ca/|Scheme Now!]]
+{{tar}} package.
+
+=== Author
+
+Marc Feeley
+
+Ported to CHICKEN by felix winkelmann.
+
+=== Requirements
+
+The [[miscmacros]] egg is required.
+
+=== Record type
+
+Tar entries are represented by the {{tar-rec}} record type.
+
+==== Accessors
+
+See the documentation of the various tar formats for further details
+on these fields. Some formats may not support all fields; if a given
+field is not supported, its accessor will return {{#f}}.
+
+<procedure>(tar-rec-name tar-rec) → string</procedure>
+
+Returns the full path of the entry.
+
+<procedure>(tar-rec-mode tar-rec) → integer</procedure>
+
+Returns the octal file mode of the entry.
+
+<procedure>(tar-rec-uid tar-rec) → integer</procedure>
+
+Returns the octal numeric user ID of the entry.
+
+<procedure>(tar-rec-gid tar-rec) → integer</procedure>
+
+Returns the octal numeric group ID of the entry.
+
+<procedure>(tar-rec-mtime tar-rec) → integer</procedure>
+
+Returns the (epoch) last modification time of the entry.
+
+<procedure>(tar-rec-type tar-rec) → integer</procedure>
+
+Returns the numeric type flag of the entry.
+
+<procedure>(tar-rec-linkname tar-rec) → string</procedure>
+
+Returns the linked path of the entry.
+
+<procedure>(tar-rec-uname tar-rec) → string</procedure>
+
+Returns the user name of the owner of the entry.
+
+<procedure>(tar-rec-gname tar-rec) → string</procedure>
+
+Returns the group name of the owner of the entry.
+
+<procedure>(tar-rec-devmajor tar-rec) → integer</procedure>
+
+Returns the major device number of the entry.
+
+<procedure>(tar-rec-devminor tar-rec) → integer</procedure>
+
+Returns the minor device number of the entry.
+
+<procedure>(tar-rec-atime tar-rec) → integer</procedure>
+
+Returns the (epoch) last access time of the entry. ({{gnu}} format
+archives only.)
+
+<procedure>(tar-rec-ctime tar-rec) → integer</procedure>
+
+Returns the (epoch) creation time of the entry. ({{gnu}} format
+archives only.)
+
+<procedure>(tar-rec-content tar-rec) → u8vector</procedure>
+
+Returns the file data of the entry.
+
+==== Constructor
+
+<procedure>(make-tar-rec name mode uid gid mtime type linkname uname gname devmajor devminor atime ctime content) → tar-rec</procedure>
+
+Returns a new {{tar-rec}}. Fields may be omitted by passing {{#f}} for
+the corresponding argument. See the Accessor documentation above for
+the types of the arguments.
+
+=== History
+
+; 1.0.1.1 : fixed missing dependency (thanks to Mario)
+; 1.0.1 : initial import
