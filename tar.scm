@@ -508,4 +508,10 @@
     (genport-close-input-port genport-in)
     result))
 
+(define (tar-read-file filename)
+  (let* ((port (open-input-file filename))
+         (res (tar-unpack-genport port)))
+    (close-input-port port)
+    res))
+
 ;;;===========================================================================
