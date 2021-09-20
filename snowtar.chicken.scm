@@ -95,8 +95,6 @@
   (defalias (genport-read-subu8vector u8 s e p)
     (read-u8vector! (fx- e s) u8 p s))
 
-  (alias genport-close-input-port close-input-port)
-  (alias genport-close-output-port close-output-port)
   (alias genport-open-output-u8vector open-output-string)
 
   (definternal (genport-open-input-file name)

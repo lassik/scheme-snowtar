@@ -260,7 +260,7 @@
 (define (tar-pack-file tar-rec-list filename)
   (let ((genport-out (genport-open-output-file filename)))
     (tar-pack-genport tar-rec-list genport-out)
-    (genport-close-output-port genport-out)
+    (close-output-port genport-out)
     #f))
 
 (define (tar-pack-u8vector tar-rec-list)
@@ -461,13 +461,13 @@
 (define (tar-unpack-file filename)
   (let* ((genport-in (genport-open-input-file filename))
          (result (tar-unpack-genport genport-in)))
-    (genport-close-input-port genport-in)
+    (close-input-port genport-in)
     result))
 
 (define (tar-unpack-u8vector u8vect)
   (let* ((genport-in (genport-open-input-u8vector u8vect))
          (result (tar-unpack-genport genport-in)))
-    (genport-close-input-port genport-in)
+    (close-input-port genport-in)
     result))
 
 (define (tar-read-file filename)
