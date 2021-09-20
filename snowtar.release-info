@@ -1,0 +1,5 @@
+;; -*- Scheme -*-
+
+(repo git "git://github.com/lassik/scheme-{egg-name}.git")
+(uri targz "https://github.com/lassik/scheme-{egg-name}/tarball/{egg-release}")
+(release "1.1")
