@@ -107,8 +107,8 @@
 
 (define (tar-pack-genport tar-rec-list genport-out)
 
-  (define tar-format 'gnu) ;; can be gnu, ustar or v7
-;;  (define tar-format 'ustar)
+;;  (define tar-format 'gnu) ;; can be gnu, ustar or v7
+  (define tar-format 'ustar)
 ;;  (define tar-format 'v7)
 
   (define use-blanks #f)
