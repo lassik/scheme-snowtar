@@ -1,7 +1,8 @@
 ;;;; snowtar.scm
 
 
-(use srfi-4 numbers lolevel posix utils data-structures)
+;;(use srfi-4 numbers lolevel posix utils data-structures)
+(import (srfi 4))
 
 (include "snow-compatibility.scm")
 

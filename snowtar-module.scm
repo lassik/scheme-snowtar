@@ -24,11 +24,12 @@
 		 tar-pack-file
 		 tar-pack-u8vector
 		 tar-unpack-genport
-		 tar-unpack-file 
+		 tar-unpack-file
 		 tar-unpack-u8vector
 		 tar-read-file)
 
-(import scheme chicken)
+;;(import scheme chicken)
+(import (scheme) (chicken base))
 
 (include "snowtar.scm")
 

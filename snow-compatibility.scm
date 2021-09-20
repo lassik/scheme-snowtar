@@ -1,7 +1,18 @@
 ;;;; snow-compatibility.scm
 
+(import (chicken blob))
+(import (chicken condition))
+(import (chicken file))
+(import (chicken file posix))
+(import (chicken fixnum))
+(import (chicken io))
+(import (chicken memory))
+(import (chicken time))
+(import (only (chicken syntax) define-compiler-syntax))
+(import (only (chicken string) string-intersperse))
 
-(import (except miscmacros define-macro))
+;;(import (except miscmacros define-macro))
+(import (miscmacros))
 
 
 (define-syntax-rule (define-alias-syntax new old)
@@ -11,7 +22,7 @@
 (define-syntax-rule (defalias (name . args) body ...)
   (define-compiler-syntax name
     (syntax-rules ()
-      ((_ . args2) 
+      ((_ . args2)
        ((lambda args body ...) . args2)))))
 
 (define-syntax-rule (alias new old)
@@ -27,7 +38,7 @@
 (define-syntax-rule (defidentity new)
   (defalias (new x) x))
 
-(define-syntax definternal 
+(define-syntax definternal
   (syntax-rules ()
     ((_ (name . args) body ...)
      (begin
@@ -45,7 +56,7 @@
 
 (define-syntax define-macro
   (syntax-rules ()
-    ((_ (name) val) 
+    ((_ (name) val)
      (define-syntax-rule (name) val))))
 
 (alias snow-raise signal)
@@ -93,8 +104,9 @@
   (blob->u8vector/shared (string->blob (get-output-string p))))
 
 (definternal (genport-read-file fname)
-  (blob->u8vector/shared (string->blob (read-all fname))))
- 
+  ;;(blob->u8vector/shared (string->blob (read-all fname)))
+  (blob->u8vector/shared (string->blob (read-string fname))))
+
 
 ;;; homovector
 
@@ -105,7 +117,7 @@
 (alias snow-subu8vector subu8vector)
 
 (definternal (snow-subu8vector-move! src src-s src-e dst dst-s)
-  (move-memory! 
+  (move-memory!
    (u8vector->blob/shared src)
    (u8vector->blob/shared dst)
    (fx- src-e src-s)

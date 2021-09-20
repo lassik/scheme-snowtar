@@ -1,0 +1,15 @@
+;; -*- Scheme -*-
+
+((synopsis "TAR file format packing and unpacking.")
+ (category parsing)
+ (license "LGPL-2.1-or-later")
+ (author "Marc Feeley")
+ (maintainer "Lassi Kortela")
+ (dependencies miscmacros)
+ (components
+  (extension snowtar
+             (source "snowtar-module.scm")
+             (source-dependencies
+              "snow-compatibility.scm"
+              "snowtar.scm"
+              "tar.scm"))))
