@@ -88,7 +88,9 @@
 
 (definternal (genport-read-file fname)
   ;;(blob->u8vector/shared (string->blob (read-all fname)))
-  (blob->u8vector/shared (string->blob (read-string fname))))
+  (blob->u8vector/shared
+   (string->blob
+    (with-input-from-file fname (lambda () (read-string #f))))))
 
 
 ;;; homovector
