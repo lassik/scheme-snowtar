@@ -11,5 +11,4 @@
              (source "snowtar-module.scm")
              (source-dependencies
               "snow-compatibility.scm"
-              "snowtar.scm"
               "tar.scm"))))
