@@ -8,77 +8,37 @@
 
 ;;; Contains procedures to pack and unpack tar files.
 
-(define-record tar-rec
-  name
-  mode
-  uid
-  gid
-  mtime
-  type
-  linkname
-  uname
-  gname
-  devmajor
-  devminor
-  atime
-  ctime
-  content)
-
-(package* tar/v1.0.1
- (provide:
-
-  (define-record* tar-rec
-    ;; uid: tar-rec-1e4c3b06-1a6f-4765-9d77-c1093d1c15ee
-    name
-    mode
-    uid
-    gid
-    mtime
-    type
-    linkname
-    uname
-    gname
-    devmajor
-    devminor
-    atime
-    ctime
-    content)
-
-  (define (make-tar-condition msg))
-  (define (tar-condition? obj))
-  (define (tar-condition-msg cnd))
-
-  (define (tar-pack-genport tar-rec-list genport-out))
-  (define (tar-pack-file tar-rec-list filename))
-  (define (tar-pack-u8vector tar-rec-list))
-  (define (tar-unpack-genport genport-in))
-  (define (tar-unpack-file filename))
-  (define (tar-unpack-u8vector u8vect))
-  (define (tar-read-file filename)))
-
- (maintainer:
-  "Scheme Now! <snow at iro.umontreal.ca>")
-
- (author:
-  "Marc Feeley <feeley at iro.umontreal.ca>")
-
- (homepage:
-  "http://snow.iro.umontreal.ca")
-
- (description:
-  "TAR file format packing and unpacking.")
-
- (keywords: conv snow)
-
- (license: lgpl/v2.1)
-
- (require: bignum/v1)
- (require: homovector/v1)
- (require: genport/v1)
- (require: filesys/v1)
- (require: time/v1))
-
-;;;===========================================================================
+(define-record-type tar-rec
+  (make-tar-rec
+   name
+   mode
+   uid
+   gid
+   mtime
+   type
+   linkname
+   uname
+   gname
+   devmajor
+   devminor
+   atime
+   ctime
+   content)
+  tar-rec?
+  (name      tar-rec-name      tar-rec-name-set!)
+  (mode      tar-rec-mode      tar-rec-mode-set!)
+  (uid       tar-rec-uid       tar-rec-uid-set!)
+  (gid       tar-rec-gid       tar-rec-gid-set!)
+  (mtime     tar-rec-mtime     tar-rec-mtime-set!)
+  (type      tar-rec-type      tar-rec-type-set!)
+  (linkname  tar-rec-linkname  tar-rec-linkname-set!)
+  (uname     tar-rec-uname     tar-rec-uname-set!)
+  (gname     tar-rec-gname     tar-rec-gname-set!)
+  (devmajor  tar-rec-devmajor  tar-rec-devmajor-set!)
+  (devminor  tar-rec-devminor  tar-rec-devminor-set!)
+  (atime     tar-rec-atime     tar-rec-atime-set!)
+  (ctime     tar-rec-ctime     tar-rec-ctime-set!)
+  (content   tar-rec-content   tar-rec-content-set!))
 
 ;;; System dependencies.
 
@@ -99,7 +59,9 @@
 
 ;;;---------------------------------------------------------------------------
 
-(define-macro (header-size) 512)
+(define-syntax header-size
+  (syntax-rules ()
+    ((_) 512)))
 
 ;;;---------------------------------------------------------------------------
 
@@ -298,11 +260,11 @@
 (define (tar-pack-file tar-rec-list filename)
   (let ((genport-out (genport-open-output-file filename)))
     (tar-pack-genport tar-rec-list genport-out)
-    (genport-close-output-port genport-out)
+    (close-output-port genport-out)
     #f))
 
 (define (tar-pack-u8vector tar-rec-list)
-  (let ((genport-out (genport-open-output-u8vector)))
+  (let ((genport-out (open-output-bytevector)))
     (tar-pack-genport tar-rec-list genport-out)
     (genport-get-output-u8vector genport-out)))
 
@@ -499,13 +461,13 @@
 (define (tar-unpack-file filename)
   (let* ((genport-in (genport-open-input-file filename))
          (result (tar-unpack-genport genport-in)))
-    (genport-close-input-port genport-in)
+    (close-input-port genport-in)
     result))
 
 (define (tar-unpack-u8vector u8vect)
   (let* ((genport-in (genport-open-input-u8vector u8vect))
          (result (tar-unpack-genport genport-in)))
-    (genport-close-input-port genport-in)
+    (close-input-port genport-in)
     result))
 
 (define (tar-read-file filename)
