@@ -28,11 +28,3 @@
      (begin
        (declare (hide name))
        (define name val)))))
-
-(define-syntax define-macro
-  (syntax-rules ()
-    ((_ (name) val)
-     (define-syntax name
-       (syntax-rules ()
-         ((_)
-          val))))))
