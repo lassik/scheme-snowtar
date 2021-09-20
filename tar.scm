@@ -264,7 +264,7 @@
     #f))
 
 (define (tar-pack-u8vector tar-rec-list)
-  (let ((genport-out (genport-open-output-u8vector)))
+  (let ((genport-out (open-output-bytevector)))
     (tar-pack-genport tar-rec-list genport-out)
     (genport-get-output-u8vector genport-out)))
 

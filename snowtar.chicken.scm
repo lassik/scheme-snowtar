@@ -95,7 +95,7 @@
   (defalias (genport-read-subu8vector u8 s e p)
     (read-u8vector! (fx- e s) u8 p s))
 
-  (alias genport-open-output-u8vector open-output-string)
+  (alias open-output-bytevector open-output-string)
 
   (definternal (genport-open-input-file name)
     (open-input-file name #:binary))
